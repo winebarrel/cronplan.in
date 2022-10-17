@@ -33,13 +33,13 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
-		q, ok := c.GetQuery("e")
+		exp, ok := c.GetQuery("e")
 
 		if ok {
-			schedule, err := cronNext(q)
+			schedule, err := cronNext(exp)
 
 			if err != nil {
-				c.String(http.StatusBadRequest, err.Error())
+				c.String(http.StatusBadRequest, err.Error()+"\n")
 				return
 			}
 
@@ -60,14 +60,14 @@ see http://%s?e=5+0+%%2A+%%2A+%%3F+%%2A
 		exp, err := io.ReadAll(c.Request.Body)
 
 		if err != nil {
-			c.String(http.StatusBadRequest, err.Error())
+			c.String(http.StatusBadRequest, err.Error()+"\n")
 			return
 		}
 
 		schedule, err := cronNext(string(exp))
 
 		if err != nil {
-			c.String(http.StatusBadRequest, err.Error())
+			c.String(http.StatusBadRequest, err.Error()+"\n")
 			return
 		}
 
