@@ -1,2 +1,2 @@
-# cronplan.cf
-http://cronplan.cf
+# cronplan.in
+http://cronplan.in

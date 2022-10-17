@@ -1,11 +1,11 @@
 {
-  "name": "cronplan.cf",
-  "description": "Show cron next trigger dates",
+  "name": "cronplan.in",
+  "description": "Show cron next trigger date(s)",
   "keywords": [
     "cronplan",
     "go",
     "cron"
   ],
-  "website": "http://github.com/winebarrel/cronplan.cf",
-  "repository": "http://github.com/winebarrel/cronplan.cf"
+  "website": "http://cronplan.in",
+  "repository": "http://github.com/winebarrel/cronplan.in"
 }

@@ -1,4 +1,4 @@
-module cronplan.cf
+module cronplan.in
 
 go 1.19
 
