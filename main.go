@@ -48,9 +48,10 @@ func main() {
 			c.String(http.StatusOK, fmt.Sprintf(`USAGE:
 
   curl %s -d '5 0 * * ? *'
+
   curl -G %s --data-urlencode 'e=5 0 * * ? *'
 
-cf http://%s?e=5+0+%%2A+%%2A+%%3F+%%2A
+see http://%s?e=5+0+%%2A+%%2A+%%3F+%%2A
 `, c.Request.Host, c.Request.Host, c.Request.Host))
 		}
 	})
