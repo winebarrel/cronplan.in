@@ -11,12 +11,48 @@ import (
 	"github.com/winebarrel/cronplan"
 )
 
+func cronNext(exp string) (string, error) {
+	cron, err := cronplan.Parse(exp)
+
+	if err != nil {
+		return "", err
+	}
+
+	triggers := cron.NextN(time.Now(), 10)
+	var buf strings.Builder
+
+	for _, t := range triggers {
+		buf.WriteString(t.Format("Mon, 02 Jan 2006 15:04:05 MST"))
+		buf.WriteString("\n")
+	}
+
+	return buf.String(), nil
+}
+
 func main() {
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
-		host := c.Request.Host
-		c.String(http.StatusOK, fmt.Sprintf("USAGE: curl %s -d '5 0 * * ? *'\n", host))
+		q, ok := c.GetQuery("e")
+
+		if ok {
+			schedule, err := cronNext(q)
+
+			if err != nil {
+				c.String(http.StatusBadRequest, err.Error())
+				return
+			}
+
+			c.String(http.StatusOK, schedule)
+		} else {
+			c.String(http.StatusOK, fmt.Sprintf(`USAGE:
+
+  curl %s -d '5 0 * * ? *'
+  curl -G %s --data-urlencode 'e=5 0 * * ? *'
+
+cf http://%s?e=5+0+%%2A+%%2A+%%3F+%%2A
+`, c.Request.Host, c.Request.Host, c.Request.Host))
+		}
 	})
 
 	r.POST("/", func(c *gin.Context) {
@@ -27,22 +63,14 @@ func main() {
 			return
 		}
 
-		cron, err := cronplan.Parse(string(exp))
+		schedule, err := cronNext(string(exp))
 
 		if err != nil {
 			c.String(http.StatusBadRequest, err.Error())
 			return
 		}
 
-		triggers := cron.NextN(time.Now(), 10)
-		var buf strings.Builder
-
-		for _, t := range triggers {
-			buf.WriteString(t.Format("Mon, 02 Jan 2006 15:04:05 MST"))
-			buf.WriteString("\n")
-		}
-
-		c.String(http.StatusOK, buf.String())
+		c.String(http.StatusOK, schedule)
 	})
 
 	r.Run()
