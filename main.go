@@ -51,7 +51,7 @@ func main() {
 
   curl %s -G --data-urlencode 'e=5 0 * * ? *'
 
-see http://%s?e=5+0+%%2A+%%2A+%%3F+%%2A
+see http://%s?e=5+0+*+*+?+*
 `, c.Request.Host, c.Request.Host, c.Request.Host))
 		}
 	})
