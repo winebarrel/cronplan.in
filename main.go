@@ -22,7 +22,7 @@ func cronNext(exp string) (string, error) {
 	var buf strings.Builder
 
 	for _, t := range triggers {
-		buf.WriteString(t.Format("Mon, 02 Jan 2006 15:04:05 MST"))
+		buf.WriteString(t.Format("Mon, 02 Jan 2006 15:04:05"))
 		buf.WriteString("\n")
 	}
 
