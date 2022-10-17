@@ -1,2 +1,2 @@
 # cronplan.cf
-cronplan.cf
+http://cronplan.cf
