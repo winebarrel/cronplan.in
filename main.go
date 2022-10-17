@@ -49,7 +49,7 @@ func main() {
 
   curl %s -d '5 0 * * ? *'
 
-  curl -G %s --data-urlencode 'e=5 0 * * ? *'
+  curl %s -G --data-urlencode 'e=5 0 * * ? *'
 
 see http://%s?e=5+0+%%2A+%%2A+%%3F+%%2A
 `, c.Request.Host, c.Request.Host, c.Request.Host))
