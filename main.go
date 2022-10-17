@@ -16,7 +16,7 @@ func main() {
 
 	r.GET("/", func(c *gin.Context) {
 		host := c.Request.Host
-		c.String(http.StatusOK, fmt.Sprintf("USAGE:\ncurl %s -d '5 0 * * ? *'\n", host))
+		c.String(http.StatusOK, fmt.Sprintf("USAGE: curl %s -d '5 0 * * ? *'\n", host))
 	})
 
 	r.POST("/", func(c *gin.Context) {
