@@ -45,7 +45,9 @@ func main() {
 
 			c.String(http.StatusOK, schedule)
 		} else {
-			c.String(http.StatusOK, fmt.Sprintf(`USAGE:
+			c.String(http.StatusOK, fmt.Sprintf(`Show cron schedule.
+
+USAGE:
 
   curl %s -d '5 0 * * ? *'
 
