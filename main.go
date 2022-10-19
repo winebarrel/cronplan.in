@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/mileusna/useragent"
 	"github.com/winebarrel/cronplan"
 )
 
@@ -45,6 +46,16 @@ func main() {
 
 			c.String(http.StatusOK, schedule)
 		} else {
+			host := c.Request.Host
+			proto := c.GetHeader("X-Forwarded-Proto")
+			ua := useragent.Parse(c.GetHeader("User-Agent"))
+
+			if ua.Name != "curl" && proto != "https" && !strings.HasPrefix(host, "localhost") {
+				c.Request.URL.Scheme = "https"
+				c.Redirect(http.StatusFound, c.Request.URL.String())
+				return
+			}
+
 			c.String(http.StatusOK, fmt.Sprintf(`Show cron schedule.
 
 USAGE:
@@ -56,7 +67,7 @@ USAGE:
 see https://%s?e=5+0+*+*+?+*
 
 implemented by https://github.com/winebarrel/cronplan
-`, c.Request.Host, c.Request.Host, c.Request.Host))
+`, c.Request.Host, c.Request.Host, host))
 		}
 	})
 
