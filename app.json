@@ -6,6 +6,6 @@
     "go",
     "cron"
   ],
-  "website": "http://cronplan.in",
-  "repository": "http://github.com/winebarrel/cronplan.in"
+  "website": "https://cronplan.in",
+  "repository": "https://github.com/winebarrel/cronplan.in"
 }
