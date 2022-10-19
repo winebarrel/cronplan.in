@@ -54,6 +54,8 @@ USAGE:
   curl %s -G --data-urlencode 'e=5 0 * * ? *'
 
 see http://%s?e=5+0+*+*+?+*
+
+implemented by https://github.com/winebarrel/cronplan
 `, c.Request.Host, c.Request.Host, c.Request.Host))
 		}
 	})
