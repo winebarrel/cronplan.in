@@ -9,8 +9,22 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/mileusna/useragent"
+	"github.com/russross/blackfriday/v2"
 	"github.com/winebarrel/cronplan"
 )
+
+const idxTmpl = `Show cron schedule.
+
+USAGE:
+
+  curl %s -d '5 0 * * ? *'
+
+  curl %s -G --data-urlencode 'e=5 0 * * ? *'
+
+see https://%s?e=5+0+*+*+?+*
+
+implemented by https://github.com/winebarrel/cronplan
+`
 
 func cronNext(exp string) (string, error) {
 	cron, err := cronplan.Parse(exp)
@@ -59,18 +73,13 @@ func main() {
 
 			c.String(http.StatusOK, schedule)
 		} else {
-			c.String(http.StatusOK, fmt.Sprintf(`Show cron schedule.
-
-USAGE:
-
-  curl %s -d '5 0 * * ? *'
-
-  curl %s -G --data-urlencode 'e=5 0 * * ? *'
-
-see https://%s?e=5+0+*+*+?+*
-
-implemented by https://github.com/winebarrel/cronplan
-`, c.Request.Host, c.Request.Host, host))
+			index := fmt.Sprintf(idxTmpl, c.Request.Host, c.Request.Host, host)
+			if ua.Name == "curl" {
+				c.String(http.StatusOK, index)
+			} else {
+				c.Writer.Header().Set("Content-Type", "text/html")
+				c.String(http.StatusOK, string(blackfriday.Run([]byte(index))))
+			}
 		}
 	})
 
