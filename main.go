@@ -34,6 +34,19 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
+		host := c.Request.Host
+		proto := c.GetHeader("X-Forwarded-Proto")
+		ua := useragent.Parse(c.GetHeader("User-Agent"))
+
+		if ua.Name != "curl" && proto != "https" && !strings.HasPrefix(host, "localhost") {
+			if len(c.Request.URL.RawQuery) > 0 {
+				host += "?" + c.Request.URL.RawQuery
+			}
+
+			c.Redirect(http.StatusFound, fmt.Sprintf("https://%s", host))
+			return
+		}
+
 		exp, ok := c.GetQuery("e")
 
 		if ok {
@@ -46,15 +59,6 @@ func main() {
 
 			c.String(http.StatusOK, schedule)
 		} else {
-			host := c.Request.Host
-			proto := c.GetHeader("X-Forwarded-Proto")
-			ua := useragent.Parse(c.GetHeader("User-Agent"))
-
-			if ua.Name != "curl" && proto != "https" && !strings.HasPrefix(host, "localhost") {
-				c.Redirect(http.StatusFound, fmt.Sprintf("https://%s", host))
-				return
-			}
-
 			c.String(http.StatusOK, fmt.Sprintf(`Show cron schedule.
 
 USAGE:
