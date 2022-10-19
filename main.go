@@ -74,6 +74,7 @@ func main() {
 			c.String(http.StatusOK, schedule)
 		} else {
 			index := fmt.Sprintf(idxTmpl, c.Request.Host, c.Request.Host, host)
+
 			if ua.Name == "curl" {
 				c.String(http.StatusOK, index)
 			} else {
