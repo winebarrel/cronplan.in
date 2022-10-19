@@ -51,8 +51,7 @@ func main() {
 			ua := useragent.Parse(c.GetHeader("User-Agent"))
 
 			if ua.Name != "curl" && proto != "https" && !strings.HasPrefix(host, "localhost") {
-				c.Request.URL.Scheme = "https"
-				c.Redirect(http.StatusFound, c.Request.URL.String())
+				c.Redirect(http.StatusFound, fmt.Sprintf("https://%s", host))
 				return
 			}
 
