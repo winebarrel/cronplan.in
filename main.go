@@ -22,7 +22,7 @@ USAGE:
 
   curl %s -G --data-urlencode 'e=5 0 * * ? *'
 
-see https://%s?e=5+0+*+*+?+*
+  e.g. https://%s?e=5+0+*+*+?+*
 
 cron expr spec: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 
