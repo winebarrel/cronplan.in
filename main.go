@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 	"time"
 
@@ -79,7 +80,10 @@ func main() {
 				c.String(http.StatusOK, index)
 			} else {
 				c.Writer.Header().Set("Content-Type", "text/html")
-				c.String(http.StatusOK, string(blackfriday.Run([]byte(index))))
+				r := regexp.MustCompile(`(?m)^  `)
+				index = r.ReplaceAllString(index, "&nbsp;&nbsp;")
+				html := blackfriday.Run([]byte(index))
+				c.String(http.StatusOK, string(html))
 			}
 		}
 	})
