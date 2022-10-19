@@ -24,6 +24,7 @@ USAGE:
 
 see https://%s?e=5+0+*+*+?+*
 
+cron expr spec: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 implemented by https://github.com/winebarrel/cronplan
 `
 
