@@ -82,7 +82,7 @@ func main() {
 				c.Writer.Header().Set("Content-Type", "text/html")
 				r := regexp.MustCompile(`(?m)^  `)
 				index = r.ReplaceAllString(index, "&nbsp;&nbsp;")
-				html := blackfriday.Run([]byte(index))
+				html := blackfriday.Run([]byte(index), blackfriday.WithNoExtensions(), blackfriday.WithExtensions(blackfriday.Autolink))
 				c.String(http.StatusOK, string(html))
 			}
 		}
