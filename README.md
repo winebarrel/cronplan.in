@@ -1,2 +1,2 @@
 # cronplan.in
-http://cronplan.in
+https://cronplan.in
