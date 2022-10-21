@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -108,5 +109,16 @@ func main() {
 		c.String(http.StatusOK, schedule)
 	})
 
-	r.Run()
+	addr := os.Getenv("LISTEN")
+	port := os.Getenv("PORT")
+
+	if addr == "" {
+		addr = "127.0.0.1"
+	}
+
+	if port == "" {
+		port = "8080"
+	}
+
+	r.Run(fmt.Sprintf("%s:%s", addr, port))
 }
