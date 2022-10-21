@@ -16,7 +16,7 @@ import (
 	"github.com/winebarrel/cronplan"
 )
 
-const idxTmpl = `Show cron schedule.
+const idxTmpl = `Show AWS cron schedule.
 
 USAGE:
 
@@ -28,7 +28,7 @@ USAGE:
 
   e.g. https://%[1]s/15?e=*/5+10+?+*+FRI+*
 
-cron expr spec: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
+cron expr spec: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
 
 implemented by https://github.com/winebarrel/cronplan
 `
