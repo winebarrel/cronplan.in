@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -19,25 +20,35 @@ const idxTmpl = `Show cron schedule.
 
 USAGE:
 
-  curl %s -d '5 0 * * ? *'
+  curl %[1]s -d '5 0 * * ? *'
 
-  curl %s -G --data-urlencode 'e=5 0 * * ? *'
+  curl %[1]s/15 -d '*/5 10 ? * FRI *'
 
-  e.g. https://%s?e=5+0+*+*+?+*
+  curl %[1]s -G --data-urlencode 'e=5 0 * * ? *'
+
+  e.g. https://%[1]s/15?e=*/5+10+?+*+FRI+*
 
 cron expr spec: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
 
 implemented by https://github.com/winebarrel/cronplan
 `
 
-func cronNext(exp string) (string, error) {
+func cronNext(exp string, num string) (string, error) {
 	cron, err := cronplan.Parse(exp)
 
 	if err != nil {
 		return "", err
 	}
 
-	triggers := cron.NextN(time.Now(), 10)
+	n := 10
+
+	if num != "/" {
+		num = strings.TrimPrefix(num, "/")
+		fmt.Println(num)
+		n, _ = strconv.Atoi(num)
+	}
+
+	triggers := cron.NextN(time.Now(), n)
 	var buf strings.Builder
 
 	for _, t := range triggers {
@@ -50,8 +61,16 @@ func cronNext(exp string) (string, error) {
 
 func main() {
 	r := gin.Default()
+	rPath := regexp.MustCompile(`^/\d*$`)
 
-	r.GET("/", func(c *gin.Context) {
+	r.GET("/*num", func(c *gin.Context) {
+		num := c.Param("num")
+
+		if !rPath.MatchString(num) {
+			c.String(http.StatusNotFound, "404 page not found")
+			return
+		}
+
 		host := c.Request.Host
 		proto := c.GetHeader("X-Forwarded-Proto")
 		ua := useragent.Parse(c.GetHeader("User-Agent"))
@@ -68,7 +87,7 @@ func main() {
 		exp, ok := c.GetQuery("e")
 
 		if ok {
-			schedule, err := cronNext(exp)
+			schedule, err := cronNext(exp, num)
 
 			if err != nil {
 				c.String(http.StatusBadRequest, err.Error()+"\n")
@@ -76,8 +95,11 @@ func main() {
 			}
 
 			c.String(http.StatusOK, schedule)
+		} else if num != "/" {
+			fmt.Println(num)
+			c.Redirect(http.StatusFound, "/")
 		} else {
-			index := fmt.Sprintf(idxTmpl, c.Request.Host, c.Request.Host, host)
+			index := fmt.Sprintf(idxTmpl, host)
 
 			if ua.Name == "curl" {
 				c.String(http.StatusOK, index)
@@ -91,7 +113,14 @@ func main() {
 		}
 	})
 
-	r.POST("/", func(c *gin.Context) {
+	r.POST("/*num", func(c *gin.Context) {
+		num := c.Param("num")
+
+		if !rPath.MatchString(num) {
+			c.String(http.StatusNotFound, "404 page not found")
+			return
+		}
+
 		exp, err := io.ReadAll(c.Request.Body)
 
 		if err != nil {
@@ -99,7 +128,7 @@ func main() {
 			return
 		}
 
-		schedule, err := cronNext(string(exp))
+		schedule, err := cronNext(string(exp), num)
 
 		if err != nil {
 			c.String(http.StatusBadRequest, err.Error()+"\n")
