@@ -108,7 +108,7 @@ func main() {
 				r := regexp.MustCompile(`(?m)^  `)
 				index = r.ReplaceAllString(index, "&nbsp;&nbsp;")
 				html := blackfriday.Run([]byte(index), blackfriday.WithNoExtensions(), blackfriday.WithExtensions(blackfriday.Autolink))
-				c.String(http.StatusOK, fmt.Sprintf("<html><head><title>%s</title></head><body>%s</body></html>", "cronplan.io", string(html)))
+				c.String(http.StatusOK, fmt.Sprintf("<html><head><title>%s</title></head><body>%s</body></html>", "cronplan.in", string(html)))
 			}
 		}
 	})
