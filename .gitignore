@@ -1,4 +1,1 @@
-.env
-.docker_build/
-bin/
-tmp/
+cronplan.in
