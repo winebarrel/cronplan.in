@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"regexp"
@@ -149,5 +150,9 @@ func main() {
 		port = "8080"
 	}
 
-	r.Run(fmt.Sprintf("%s:%s", addr, port))
+	err := r.Run(fmt.Sprintf("%s:%s", addr, port))
+
+	if err != nil {
+		log.Fatal(err)
+	}
 }
