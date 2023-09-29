@@ -29,9 +29,9 @@ USAGE:
 
   e.g. https://%[1]s/15?e=*/5+10+?+*+FRI+*
 
-cron expr spec: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions
+Cron expr spec: https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html
 
-implemented by https://github.com/winebarrel/cronplan
+Implemented by https://github.com/winebarrel/cronplan
 `
 
 func cronNext(exp string, num string) (string, error) {
