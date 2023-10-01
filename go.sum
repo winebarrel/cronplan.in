@@ -77,8 +77,8 @@ github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/ugorji/go/codec v1.2.11 h1:BMaWp1Bb6fHwEtbplGBGJ498wD+LKlNSl25MjdZY4dU=
 github.com/ugorji/go/codec v1.2.11/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
-github.com/winebarrel/cronplan v1.9.0 h1:R6j04CWm5Ah5Dp1EMJbcAM7mBBSXykPkGZrDgI610Hw=
-github.com/winebarrel/cronplan v1.9.0/go.mod h1:FXpmoZVzj9eZoyHe1lpUezcFL3Tk6p5OBSovWeHq4qY=
+github.com/winebarrel/cronplan v1.9.2 h1:ePMuBan4ofvBkh6ufLzTj7D7nc7cU9uEktns9KpPuTU=
+github.com/winebarrel/cronplan v1.9.2/go.mod h1:FXpmoZVzj9eZoyHe1lpUezcFL3Tk6p5OBSovWeHq4qY=
 golang.org/x/arch v0.0.0-20210923205945-b76863e36670/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=
 golang.org/x/arch v0.5.0 h1:jpGode6huXQxcskEIpOCvrU+tzo81b6+oFLUYXWtH/Y=
 golang.org/x/arch v0.5.0/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=

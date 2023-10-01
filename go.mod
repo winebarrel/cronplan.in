@@ -7,7 +7,7 @@ toolchain go1.21.1
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/russross/blackfriday/v2 v2.1.0
-	github.com/winebarrel/cronplan v1.9.0
+	github.com/winebarrel/cronplan v1.9.2
 )
 
 require (
