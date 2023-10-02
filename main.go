@@ -60,6 +60,16 @@ func cronNext(exp string, num string) (string, error) {
 	return buf.String(), nil
 }
 
+func acceptJSON(accepted []string) bool {
+	for _, a := range accepted {
+		if a == "application/json" {
+			return true
+		}
+	}
+
+	return false
+}
+
 func main() {
 	r := gin.Default()
 	rPath := regexp.MustCompile(`^/\d*$`)
@@ -94,8 +104,14 @@ func main() {
 				c.String(http.StatusBadRequest, err.Error()+"\n")
 				return
 			}
-
-			c.String(http.StatusOK, schedule)
+			if acceptJSON(c.Accepted) {
+				c.JSON(http.StatusOK, map[string]any{
+					"expr":     exp,
+					"schedule": schedule,
+				})
+			} else {
+				c.String(http.StatusOK, schedule)
+			}
 		} else if num != "/" {
 			c.Redirect(http.StatusFound, "/")
 		} else {
@@ -135,7 +151,14 @@ func main() {
 			return
 		}
 
-		c.String(http.StatusOK, schedule)
+		if acceptJSON(c.Accepted) {
+			c.JSON(http.StatusOK, map[string]any{
+				"expr":     exp,
+				"schedule": schedule,
+			})
+		} else {
+			c.String(http.StatusOK, schedule)
+		}
 	})
 
 	addr := os.Getenv("LISTEN")
