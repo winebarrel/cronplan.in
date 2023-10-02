@@ -130,13 +130,13 @@ func main() {
 		}
 
 		rawExp, err := io.ReadAll(c.Request.Body)
-		exp := string(rawExp)
 
 		if err != nil {
 			c.String(http.StatusBadRequest, err.Error()+"\n")
 			return
 		}
 
+		exp := string(rawExp)
 		schedule, err := cronNext(exp, num)
 
 		if err != nil {
