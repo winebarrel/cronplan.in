@@ -27,7 +27,7 @@ USAGE:
 
   curl %[1]s -G --data-urlencode 'e=5 0 * * ? *'
 
-  curl 'https://%[1]s/15?e=*/5+10+?+*+FRI+*'
+  curl https://%[1]s/15?e=*/5+10+?+*+FRI+*
 
 Cron expr spec: https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html
 
