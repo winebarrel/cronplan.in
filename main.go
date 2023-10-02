@@ -97,7 +97,6 @@ func main() {
 
 			c.String(http.StatusOK, schedule)
 		} else if num != "/" {
-			fmt.Println(num)
 			c.Redirect(http.StatusFound, "/")
 		} else {
 			index := fmt.Sprintf(idxTmpl, host)
