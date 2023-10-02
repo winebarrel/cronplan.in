@@ -25,6 +25,8 @@ USAGE:
 
   curl %[1]s/15 -d '*/5 10 ? * FRI *'
 
+	curl -H 'accept: application/json' %[1]s -d '5 0 * * ? *'
+
   curl %[1]s -G --data-urlencode 'e=5 0 * * ? *'
 
   curl https://%[1]s/15?e=*/5+10+?+*+FRI+*
@@ -34,11 +36,11 @@ Cron expr spec: https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron
 Implemented by https://github.com/winebarrel/cronplan
 `
 
-func cronNext(exp string, num string) (string, error) {
+func cronNext(exp string, num string) ([]string, error) {
 	cron, err := cronplan.Parse(exp)
 
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	n := 10
@@ -50,24 +52,13 @@ func cronNext(exp string, num string) (string, error) {
 	}
 
 	triggers := cron.NextN(time.Now(), n)
-	var buf strings.Builder
+	schedule := []string{}
 
 	for _, t := range triggers {
-		buf.WriteString(t.Format("Mon, 02 Jan 2006 15:04:05"))
-		buf.WriteString("\n")
+		schedule = append(schedule, t.Format("Mon, 02 Jan 2006 15:04:05"))
 	}
 
-	return buf.String(), nil
-}
-
-func acceptJSON(accepted []string) bool {
-	for _, a := range accepted {
-		if a == "application/json" {
-			return true
-		}
-	}
-
-	return false
+	return schedule, nil
 }
 
 func main() {
@@ -104,13 +95,14 @@ func main() {
 				c.String(http.StatusBadRequest, err.Error()+"\n")
 				return
 			}
-			if acceptJSON(c.Accepted) {
+
+			if c.GetHeader("Accept") == "application/json" {
 				c.JSON(http.StatusOK, map[string]any{
 					"expr":     exp,
 					"schedule": schedule,
 				})
 			} else {
-				c.String(http.StatusOK, schedule)
+				c.String(http.StatusOK, strings.Join(schedule, "\n")+"\n")
 			}
 		} else if num != "/" {
 			c.Redirect(http.StatusFound, "/")
@@ -151,13 +143,13 @@ func main() {
 			return
 		}
 
-		if acceptJSON(c.Accepted) {
+		if c.GetHeader("Accept") == "application/json" {
 			c.JSON(http.StatusOK, map[string]any{
 				"expr":     exp,
 				"schedule": schedule,
 			})
 		} else {
-			c.String(http.StatusOK, schedule)
+			c.String(http.StatusOK, strings.Join(schedule, "\n")+"\n")
 		}
 	})
 
