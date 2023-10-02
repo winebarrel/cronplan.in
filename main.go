@@ -25,7 +25,7 @@ USAGE:
 
   curl %[1]s/15 -d '*/5 10 ? * FRI *'
 
-	curl -H 'accept: application/json' %[1]s -d '5 0 * * ? *'
+  curl -H 'accept: application/json' %[1]s -d '5 0 * * ? *'
 
   curl %[1]s -G --data-urlencode 'e=5 0 * * ? *'
 
