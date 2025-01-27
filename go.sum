@@ -74,8 +74,8 @@ github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/ugorji/go/codec v1.2.12 h1:9LC83zGrHhuUA9l16C9AHXAqEV/2wBQ4nkvumAE65EE=
 github.com/ugorji/go/codec v1.2.12/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
-github.com/winebarrel/cronplan v1.10.4 h1:lpDvd+gihqGEi7aYcvmJ1nyFVCXDULMk8XPvUQtcPyQ=
-github.com/winebarrel/cronplan v1.10.4/go.mod h1:ZGEHrRZU3YNI22nDLTr9obcRMX3uBYPektCQoCmFmaY=
+github.com/winebarrel/cronplan v1.10.5 h1:+YDDxV1KSG2B1zbVfUCUeH3ARHu3JAGgzCtai/mLTWg=
+github.com/winebarrel/cronplan v1.10.5/go.mod h1:geyNgf0hhTuFfLx9KH3Y2Y2fO/Ar9r7OkAljaVUZlS8=
 golang.org/x/arch v0.12.0 h1:UsYJhbzPYGsT0HbEdmYcqtCv8UNGvnaL561NnIUvaKg=
 golang.org/x/arch v0.12.0/go.mod h1:FEVrYAQjsQXMVJ1nsMoVVXPZg6p2JE2mx8psSWTDQys=
 golang.org/x/crypto v0.31.0 h1:ihbySMvVjLAeSH1IbfcRTkD/iNscyz8rGzjF/E5hV6U=
