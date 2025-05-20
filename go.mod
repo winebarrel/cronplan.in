@@ -5,7 +5,7 @@ go 1.23.0
 toolchain go1.24.3
 
 require (
-	github.com/gin-gonic/gin v1.10.0
+	github.com/gin-gonic/gin v1.10.1
 	github.com/mileusna/useragent v1.3.5
 	github.com/russross/blackfriday/v2 v2.1.0
 	github.com/winebarrel/cronplan v1.10.5
