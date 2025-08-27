@@ -14,7 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mileusna/useragent"
 	"github.com/russross/blackfriday/v2"
-	"github.com/winebarrel/cronplan"
+	"github.com/winebarrel/cronplan/v2"
 )
 
 const idxTmpl = `Show AWS cron schedule.

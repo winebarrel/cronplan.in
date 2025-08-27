@@ -1,0 +1,3 @@
+# flyctl launch added from .gitignore
+**/cronplan.in
+fly.toml
