@@ -8,7 +8,7 @@ require (
 	github.com/gin-gonic/gin v1.11.0
 	github.com/mileusna/useragent v1.3.5
 	github.com/russross/blackfriday/v2 v2.1.0
-	github.com/winebarrel/cronplan/v2 v2.1.0
+	github.com/winebarrel/cronplan/v2 v2.1.2
 )
 
 require (
