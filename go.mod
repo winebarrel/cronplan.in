@@ -2,7 +2,7 @@ module cronplan.in
 
 go 1.24.0
 
-toolchain go1.25.6
+toolchain go1.26.3
 
 require (
 	github.com/gin-gonic/gin v1.11.0
